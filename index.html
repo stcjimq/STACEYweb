@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STACEY</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #0b291a;        /* ディープグリーン背景 */
+            --text-color: #ffffff;
+            --sub-text: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 40px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 額縁を廃止し、コンテンツ幅のみを管理するメインコンテナ */
+        .main-wrapper {
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* タイトルエリア */
+        .title-container {
+            text-align: center;
+            margin: 10px 0 35px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ロゴ画像スタイル */
+        .title-logo {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            /* ダークグリーン背景に馴染む影効果 */
+            filter: drop-shadow(0px 8px 12px rgba(0, 0, 0, 0.7));
+        }
+
+        /* サブタイトル：DEADSTOCK TRACKS ロゴ */
+        .subtitle-logo {
+            height: 100px;
+            width: auto;
+            max-width: 100%;
+            display: block;
+            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.7));
+        }
+
+        /* トラック一覧コンテナ */
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .track-box {
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+            padding: 22px 0;
+        }
+
+        .track-box:first-child {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .track-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 0.08em;
+        }
+
+        /* オーディオプレイヤー */
+        audio {
+            width: 100%;
+            height: 40px;
+            margin-bottom: 12px;
+            outline: none;
+            filter: invert(0.9) hue-rotate(180deg) brightness(1.1);
+        }
+
+        /* 歌詞アコーディオン */
+        details.lyrics-container {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        summary.lyrics-toggle {
+            padding: 10px 14px;
+            font-size: 0.8rem;
+            color: var(--sub-text);
+            cursor: pointer;
+            letter-spacing: 0.08em;
+            user-select: none;
+            transition: color 0.2s, background-color 0.2s;
+        }
+
+        summary.lyrics-toggle:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .lyrics {
+            font-size: 0.88rem;
+            line-height: 1.8;
+            color: #d8d8d8;
+            white-space: pre-wrap;
+            padding: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            max-height: 240px;
+            overflow-y: auto;
+        }
+
+        /* スクロールバーカスタム */
+        .lyrics::-webkit-scrollbar {
+            width: 4px;
+        }
+        .lyrics::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        /* フッター */
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ドメインロゴ */
+        .domain-logo {
+            height: 100px;
+            width: auto;
+            max-width: 100%;
+            display: block;
+            margin-bottom: 20px;
+            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.7));
+        }
+
+        .suzuri-link {
+            display: inline-block;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            padding: 10px 26px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            border-radius: 2px;
+            transition: background-color 0.25s, color 0.25s, transform 0.2s;
+        }
+
+        .suzuri-link:hover {
+            background-color: #ffffff;
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
+        /* モバイル対応サイズ調整 */
+        @media (max-width: 480px) {
+            .title-logo {
+                max-width: 280px;
+            }
+            .subtitle-logo {
+                height: 20px;
+            }
+            .domain-logo {
+                height: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+
+        <div class="title-container">
+            <h1>
+                <img src="stacey-rogo.png" alt="STACEY" class="title-logo">
+            </h1>
+            <img src="deadstocktracks-logo.png" alt="DEADSTOCK TRACKS" class="subtitle-logo">
+        </div>
+
+        <div class="container">
+            <div class="track-box">
+                <div class="track-title">SONG 1 「undo」</div>
+                <audio controls src="undo.mp3" class="js-audio"></audio>
+                <details class="lyrics-container">
+                    <summary class="lyrics-toggle">LYRICS</summary>
+                    <div class="lyrics">高速回転してる指
+目をただじっと見つめてる
+やがて赤く染まった壁に
+ゆっくりと浮き上がってくる
+右腕哂う髑髏のタトゥー
+それを舐める女の夜更けさ
+俺は真夜中のアンクルジョニー
+チークタイムにジンジャエール
+
+MY SWEET BABY
+
+綺麗な瞳をした女の子
+ミルクを口に流し込み
+ポケットのオレンジ噛り付く
+少しだけ世界を好きになる
+見上げた空はエンジ色
+そこにぶら下がるお月様
+俺はこの街が好きさ
+俺はこの街が好きさ
+
+MY SWEET BABY
+
+高速回転してる指
+目をただじっと見つめてる
+優しさ悲しさすべてを
+忘れてしまっただけなんだ
+ほんの少しだけでもいいから
+分けてやってはくれないか
+君のその真っ白な心を
+世界を憎む人たちに
+
+MY SWEET BABY</div>
+                </details>
+            </div>
+
+            <div class="track-box">
+                <div class="track-title">SONG 2 「hurry up」</div>
+                <audio controls src="hurryup.mp3" class="js-audio"></audio>
+                <details class="lyrics-container">
+                    <summary class="lyrics-toggle">LYRICS</summary>
+                    <div class="lyrics">HOLLYNITE
+街に響き渡るジングルベル
+今すぐここから逃げなくちゃヤられちまうぜ
+鍵穴から覗き込むあいつはサンタクロース
+真っ白な髭摩りながらその期を待ってる
+
+Hurry up baby
+Hurry up!hurry up!
+Hurry up baby
+猟銃が妙に似合ってる
+
+音を立てちゃ駄目だぜbaby
+息を潜めて窓からDive決め込んでGetaway
+闇を駆け抜けろ
+後ろ向いちゃダメだぜbaby
+悪魔の宣告
+暗闇の中口笛がほら聞こえてくるだろ
+
+Hurry up baby
+Hurry up!hurry up!
+Hurry up baby
+銃声が鳴り響く夜
+
+Hurry up baby
+Hurry up!hurry up!
+Hurry up baby
+真っ赤な目のあいつはサンタクロース
+なんかじゃないぜ
+筋金入りのDirtywhite
+半端じゃないぜ</div>
+                </details>
+            </div>
+
+            <div class="track-box">
+                <div class="track-title">SONG 3 「nemesis」</div>
+                <audio controls src="nemesis.mp3" class="js-audio"></audio>
+                <details class="lyrics-container">
+                    <summary class="lyrics-toggle">LYRICS</summary>
+                    <div class="lyrics">突然雨が降ってきてカミナリ
+恐れをなして逃げ惑う人たち
+だんだん嫌な予感がしてたんだ
+世界の終わりに投げキッス
+
+偉大な力は異常に輝き
+見るもの全てを虜にするらしいぜ
+
+聞こえる悲鳴とくすんだ雨雲
+零番サングラス越しに未来を占う
+壊して直して繰り返す繰り返す
+恋するダストパンクスの目に映った真実
+
+偉大な力は異常に輝き
+あるもの全てを焼き尽くすらしいぜ
+
+シンディ
+復讐の連鎖ってやつを始めようぜ
+始めようか 始めようぜ
+
+時代は流れて繰り返す繰り返す
+聞こえる悲鳴は絶え間なく絶え間なく
+そんなに世界を憎んじゃダメだぜ
+恋するダストパンクスが抱きしめる真実
+
+偉大な力は異常に輝き
+見るもの全てを虜にするらしいぜ
+
+偉大な力は異常に輝き
+あるもの全てを焼き尽くすらしいぜ
+
+シンディ
+傷跡を見せてやろうか
+見せてやろうか
+
+シンディ
+復讐の連鎖ってやつを始めようぜ
+始めようか 始めようぜ</div>
+                </details>
+            </div>
+
+            <div class="track-box">
+                <div class="track-title">SONG 4 「humanity」</div>
+                <audio controls src="audio4.mp3" class="js-audio"></audio>
+                <details class="lyrics-container">
+                    <summary class="lyrics-toggle">LYRICS</summary>
+                    <div class="lyrics">humanity</div>
+                </details>
+            </div>
+
+            <div class="track-box">
+                <div class="track-title">SONG 5 「timid world」</div>
+                <audio controls src="audio5.mp3" class="js-audio"></audio>
+                <details class="lyrics-container">
+                    <summary class="lyrics-toggle">LYRICS</summary>
+                    <div class="lyrics">Baby ゴールドの髪なびかせながら
+どこへ行くんだい？
+Baby 僕らの中を吹き抜けた風は
+どこへ行ったの？
+
+華奢な体にロンドンスタイル
+ピンクのスニーカー 張り付いたパンツ
+ゴールドの髪なびかせていた
+ロックスターのTシャツは
+Just my masterpiece!
+
+いっそのことこのまま消えちまえばいいさと
+そんな風に思ってた
+明日の空の色とか電車の行く先とか
+どうでもいいと思ってた
+
+銀色の街 ギンガムチェック
+首に巻いたパンクスと猫
+耳を澄まして波の音を
+探すのはもうやめたらしい
+
+グラスを揺らししばらくそれを
+眺めた後に流し込んだね
+君はいつだってそこにいたんだ
+もうすぐさほら夜が明ける
+So lovely youth!
+
+太陽が昇りきるまでもう少しここにいさせて
+朽ち果てても構わない
+灰色の世界はまだ晴れることはないけど
+それはそれでいいと思ってるよ
+
+僕は変かな 君はどう思う
+未来はあるのかな 君はどう思う
+
+Baby ゴールドの髪なびかせながら
+どこへ行こうか
+Baby 僕らの中を吹き抜けた風は
+どこへ行ったの？
+
+Baby 灰色の世界でゴールドの髪の
+君を見つけたんだ
+Baby 銀色の街 ギンガムチェック
+君はいつだってそこにいたね
+
+太陽が昇りきるまでもう少しここにいさせて
+朽ち果てても構わない
+灰色の世界はまだ晴れることはないけど
+それはそれでいいと思ってるよ
+
+履き潰したピンクのお気に入りのスニーカーじゃ
+もう二度とこの街を歩けないけど
+鳴り止まないビートが枯れてしまったはずの
+僕のハートに火をつけるんだよ
+
+僕は変かな 君はどう思う
+未来はあるのかな 君はどう思う
+I'm in a timidworld</div>
+                </details>
+            </div>
+        </div>
+
+        <div class="footer">
+            <img src="stcjimq-logo.png" alt="stcjimq.com" class="domain-logo">
+            <a href="https://suzuri.jp/" class="suzuri-link" target="_blank" rel="noopener noreferrer">T-SHIRT (SUZURI)</a>
+        </div>
+
+    </div>
+
+    <script>
+        const audioElements = document.querySelectorAll('.js-audio');
+
+        audioElements.forEach(audio => {
+            audio.addEventListener('play', () => {
+                audioElements.forEach(otherAudio => {
+                    if (otherAudio !== audio) {
+                        otherAudio.pause();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
