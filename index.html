@@ -10,7 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" rel="stylesheet">
 
     <style>
-        :root {
+        .logo img {
+      width: 180px; /* スマホで見たい希望の大きさに調整 */
+      height: auto;
+    }
+    
+    /* スマホ画面の指定がある場合 */
+    @media (max-width: 768px) {
+      .logo img {
+        width: 160px; /* スマホで縮小されすぎないよう数値を調整 */
+      }
+    :root {
             --bg-color: #0b291a;        /* ディープグリーン背景 */
             --text-color: #ffffff;
             --sub-text: #a0a0a0;
