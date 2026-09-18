@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <link rel="icon" href="fabicon.png" type="image/png">
+    <link rel="icon" href="fabicon.jpg" type="image/jpeg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STACEY</title>
@@ -58,7 +58,7 @@
             filter: drop-shadow(0px 8px 12px rgba(0, 0, 0, 0.7));
         }
 
-        /* タイトルとサブタイトルの間のキャラクター画像 */
+        /* キャラクター画像 */
         .character-img {
             width: 100%;
             max-width: 220px;
@@ -152,13 +152,15 @@
             border-radius: 2px;
         }
 
-        /* フッター */
+        /* フッター（完全に画面中央に配置） */
         .footer {
             margin-top: 50px;
-            text-align: center;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: center; /* 左右中央揃え */
+            justify-content: center; /* 上下中央揃え（必要に応じて） */
+            text-align: center;
         }
 
         /* ドメインロゴ */
@@ -171,7 +173,7 @@
             filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.7));
         }
 
-        /* SUZURIリンクボタン（画像用スタイル） */
+        /* SUZURIリンクボタン（中央配置＆ホバーエフェクト） */
         .suzuri-link {
             display: inline-block;
             text-decoration: none;
@@ -223,7 +225,6 @@
             <h1>
                 <img src="stacey-rogo.PNG" alt="STACEY" class="title-logo">
             </h1>
-            <!-- キャラクター画像 -->
             <img src="character.PNG" alt="STACEY Character" class="character-img">
             <img src="deadstocktracks-logo.png" alt="DEADSTOCK TRACKS" class="subtitle-logo">
         </div>
@@ -457,8 +458,8 @@ I'm just timidworld</div>
 
         <div class="footer">
             <img src="stcjimq-logo.png" alt="stcjimq.com" class="domain-logo">
-            <a href="https://suzuri.jp/stcjimq" class="suzuri-link" target="_blank" rel="noopener noreferrer">
-                <img src="goods-logo.png" alt="goods (SUZURI)">
+            <a href="https://suzuri.jp/stcjimq.com" class="suzuri-link" target="_blank" rel="noopener noreferrer">
+                <img src="goods-logo.jpg" alt="goods (SUZURI)">
             </a>
         </div>
 
