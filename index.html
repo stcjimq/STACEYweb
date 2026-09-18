@@ -171,23 +171,28 @@
             filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.7));
         }
 
+        /* SUZURIリンクボタン（画像用スタイル） */
         .suzuri-link {
             display: inline-block;
-            color: #ffffff;
-            border: 1px solid #ffffff;
-            padding: 10px 26px;
             text-decoration: none;
-            font-size: 0.8rem;
-            letter-spacing: 0.15em;
-            border-radius: 2px;
             transform: translateY(0);
-            transition: background-color 0.25s, color 0.25s, transform 0.2s;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .suzuri-link img {
+            height: 70px;
+            width: auto;
+            max-width: 100%;
+            display: block;
+            filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.7));
         }
 
         .suzuri-link:hover {
-            background-color: #ffffff;
-            color: var(--bg-color);
             transform: translateY(-2px);
+        }
+
+        .suzuri-link:hover img {
+            filter: drop-shadow(0px 6px 8px rgba(0, 0, 0, 0.9)) brightness(1.1);
         }
 
         /* モバイル対応サイズ調整 */
@@ -203,6 +208,9 @@
             }
             .domain-logo {
                 height: 80px;
+            }
+            .suzuri-link img {
+                height: 55px;
             }
         }
     </style>
@@ -449,7 +457,9 @@ I'm just timidworld</div>
 
         <div class="footer">
             <img src="stcjimq-logo.png" alt="stcjimq.com" class="domain-logo">
-            <a href="https://suzuri.jp/stcjimq.com" class="suzuri-link" target="_blank" rel="noopener noreferrer">goods(SUZURI)</a>
+            <a href="https://suzuri.jp/stcjimq.com" class="suzuri-link" target="_blank" rel="noopener noreferrer">
+                <img src="goods-logo.jpg" alt="goods (SUZURI)">
+            </a>
         </div>
 
     </div>
